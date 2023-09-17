@@ -51,7 +51,7 @@ typedef struct liststr
 } list_t;
 
 /**
- * struct passinfo - contains pseudo-arguements to pass into a function,
+ * struct updatepass - contains pseudo-arguements to pass into a function,
  * allowing uniform prototype for function pointer struct
  * @arg: a string generated from getline containing arguements
  * @argv:an array of strings generated from arg
@@ -72,7 +72,7 @@ typedef struct liststr
  * @readfd: the fd from which to read line input
  * @histcount: the history line number count
  */
-typedef struct passinfo
+typedef struct updatepass 
 {
 	char *arg;
 	char **argv;
