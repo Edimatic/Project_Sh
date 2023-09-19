@@ -39,8 +39,8 @@ int main(int argct, char **argvt)
 		}
 		update->readfd = fd;/* Set the 'readfd' field in the 'info' structure */
 	}
-	populate_env_list(update);/* Populate the envt list in the 'info' structure*/
-	read_history(update);/* Read command history from a file */
+	pop_envt_regis(update);/* Populate the envt list in the 'info' structure*/
+	present_chron(update);/* Read command history from a file */
 	hsh(update, argvt);/* Start the shell's main loop */
 	return (EXIT_SUCCESS);/* Return success code */
 }

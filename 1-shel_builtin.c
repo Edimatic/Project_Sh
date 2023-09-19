@@ -12,7 +12,7 @@
 int _prohistory_(update_p *update)
 {
 	/*Display the history list using the print_list function */
-	print_list(update->history);
+	output_register(update->history);
 	return (0);
 }
 
@@ -40,8 +40,8 @@ int unmake_alias_(update_p *update, char *str)
 	*b = 0;
 
 /* Delete the alias node from the linked list */
-	ret = delete_node_at_index(&(update->alias),
-	get_node_index(update->alias, node_starts_with(update->alias, str, -1)));
+	ret = remov_node_via_roll(&(update->alias),
+	bring_node_roll(update->alias, node_begin_on(update->alias, str, -1)));
 
 /* Restore the equal sign */
 	*b = w;
@@ -71,7 +71,7 @@ int make_alias_(update_p *update, char *str)
 
 /* Unset existing alias and add new alias to linked list */
 	unmake_alias_(update, str);
-	return (add_node_end(&(update->alias), str, 0) == NULL);
+	return (attach_node_end(&(update->alias), str, 0) == NULL);
 }
 
 /**
@@ -81,7 +81,7 @@ int make_alias_(update_p *update, char *str)
  *
  * Return: Always 0 on success, 1 on error
  */
-int show_alias_(list_t *node)
+int show_alias_(regis_t *node)
 {
 	char *b = NULL, *v = NULL;
 
@@ -113,7 +113,7 @@ int _proalias_(update_p *update)
 {
 	int m = 0;
 	char *b = NULL;
-	list_t *node = NULL;
+	regis_t *node = NULL;
 
 	if (update->argc == 1)
 	{
@@ -134,7 +134,7 @@ int _proalias_(update_p *update)
 		if (b)
 			make_alias_(update, update->argv[m]);
 		else
-		show_alias_(node_starts_with(update->alias, update->argv[m], '='));
+		show_alias_(node_begin_on(update->alias, update->argv[m], '='));
 	}
 
 	return (0);

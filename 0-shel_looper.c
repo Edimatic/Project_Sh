@@ -36,7 +36,7 @@ int hsh(update_p *update, char **agtv)
 			_putchar('\n');
 		discharge_update(update, 0);
 	}
-	write_history(update);
+	document_chron(update);
 	discharge_update(update, 1);
 	if (!opt_conjoint(update) && update->status)
 		exit(update->status);
@@ -66,11 +66,11 @@ int asset_builtin(update_p *update)
 	int builtin_pro = -1;
 	builtin_submit builtinsbt[] = {
 		{"exit", _proexit},
-		{"env", _myenv},
+		{"env", _proenvt},
 		{"help", _prohelp},
 		{"history", _prohistory_},
-		{"setenv", _mysetenv},
-		{"unsetenv", _myunsetenv},
+		{"setenv", _prosetenvt},
+		{"unsetenv", _prounsetenvt},
 		{"cd", _procd},
 		{"alias", _proalias_},
 		{NULL, NULL}
@@ -114,17 +114,17 @@ void asset_cmd(update_p *update)
 	if (!k)
 		return;
 
-	direction = asset_path(update, _getenv(update, "PATH="), update->argv[0]);
+	direction = asset_path(update, opt_envir(update, "PATH="), update->argv[0]);
 	if (direction)
 	{
 		update->path = direction;
-		fork_cmd(update);
+		furk_cmd(update);
 	}
 	else
 	{
-		if ((opt_conjoint(update) || _getenv(update, "PATH=")
+		if ((opt_conjoint(update) || opt_envir(update, "PATH=")
 					|| update->argv[0][0] == '/') && mult_cmd(update, update->argv[0]))
-			fork_cmd(update);
+			furk_cmd(update);
 		else if (*(update->arg) != '\n')
 		{
 			update->status = 127;
@@ -134,13 +134,13 @@ void asset_cmd(update_p *update)
 }
 
 /**
- * fork_cmd - Forks an exec thread to run a command.
+ * furk_cmd - Forks an exec thread to run a command.
  *
  * @update: Pointer to the parameter & return info structure.
  *
  * Return: void aftrer execution.
  */
-void fork_cmd(update_p *update)
+void furk_cmd(update_p *update)
 {
 	pid_t child_pid;
 
@@ -153,7 +153,7 @@ void fork_cmd(update_p *update)
 	}
 	if (child_pid == 0)
 	{
-		if (execve(update->path, update->argv, get_environ(update)) == -1)
+		if (execve(update->path, update->argv, _pro_environ(update)) == -1)
 		{
 			discharge_update(update, 1);
 			if (errno == EACCES)

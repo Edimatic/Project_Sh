@@ -33,7 +33,7 @@ ssize_t load_bufa(update_p *update, char **bufa, size_t *distance)
 			}
 	update->linecount_flag = 1;
 	take_out_comments(*bufa);/* Take out comments from the input */
-	build_history_list(update, *bufa, update->histcount++);/* Add to history */
+	produce_chron_reg(update, *bufa, update->histcount++);/* Add to history */
 
 			{
 			*distance = r;
@@ -68,10 +68,10 @@ ssize_t wax_input(update_p *update)
 		j = q;
 		p = buf + q;
 
-		check_chain(update, buf, &j, q, len);/* Check for command chain */
+		confi_chan(update, buf, &j, q, len);/* Check for command chain */
 		while (j < len) /* Iterate to semicolon or end process */
 		{
-			if (is_chain(update, buf, &j))
+			if (pro_chan(update, buf, &j))
 				break;
 			j++;
 		}
@@ -143,7 +143,7 @@ int wax_get_line(update_p *update, char **pot, size_t *distance)
 
 	ch = _strchr_(buf + i, '\n');
 	k = ch ? 1 + (unsigned int)(ch - buf) : len;
-	old_opp = _realloc(pal, os, os ? os + k : k + 1);
+	old_opp = _allocate(pal, os, os ? os + k : k + 1);
 	if (!old_opp) /* MALLOC FAILURE! */
 		return (pal ? free(pal), -1 : -1);
 

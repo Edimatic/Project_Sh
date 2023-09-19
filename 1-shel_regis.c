@@ -1,13 +1,13 @@
 #include "function.h"
 
 /**
- * list_len - Determines length of linked list over
+ * register_extent - Determines length of linked list over
  *
  * @md: Pointer to first the node
  *
  * Return: Size of the list after execution
  */
-size_t list_len(const list_t *md)
+size_t register_extent(const regis_t *md)
 {
 	size_t lp = 0;
 
@@ -20,16 +20,16 @@ size_t list_len(const list_t *md)
 }
 
 /**
- * list_to_strings - Converts a linked list of strings into an array of strings
+ * register_via_strn - Converts a linked list of strns into an array of strns
  *
  * @boss: Pointer to the first node
  *
  * Return: Array of strings after execution
  */
-char **list_to_strings(list_t *boss)
+char **register_via_strn(regis_t *boss)
 {
-	list_t *node = boss;
-	size_t q = list_len(boss), lp;
+	regis_t *node = boss;
+	size_t q = register_extent(boss), lp;
 	char **turs;
 	char *str;
 
@@ -62,13 +62,13 @@ char **list_to_strings(list_t *boss)
 
 
 /**
- * print_list - Prints all elements of a list_t linked list
+ * output_register - Prints all elements of a regis_t linked list
  *
  * @md: Pointer to the first node.
  *
- * Return: size of the list.
+ * Return: size of the register.
  */
-size_t print_list(const list_t *md)
+size_t output_register(const regis_t *md)
 {
 	size_t w = 0;
 
@@ -86,7 +86,7 @@ size_t print_list(const list_t *md)
 }
 
 /**
- * node_starts_with - Returns the node whose string starts with a given prefix.
+ * node_begin_on - Returns the node whose string starts with a given prefix.
  *
  * @apex: Pointer to the list head.
  * @mix: String to match.
@@ -94,7 +94,7 @@ size_t print_list(const list_t *md)
  *
  * Return: Match node or null after execution
  */
-list_t *node_starts_with(list_t *apex, char *mix, char cht)
+regis_t *node_begin_on(regis_t *apex, char *mix, char cht)
 {
 	char *pin = NULL;
 
@@ -109,14 +109,14 @@ list_t *node_starts_with(list_t *apex, char *mix, char cht)
 }
 
 /**
- * get_node_index - Gets the index of a node in a linked list
+ * bring_node_roll - Gets the index of a node in a linked list
  *
  * @front: Pointer to list the front
  * @apex: Pointer to the apex
  *
  * Return: Index of the node or -1 if not found after execution.
  */
-ssize_t get_node_index(list_t *front, list_t *apex)
+ssize_t bring_node_roll(regis_t *front, regis_t *apex)
 {
 	size_t g = 0;
 

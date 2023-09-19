@@ -38,39 +38,38 @@ extern char **environ;
 
 
 /**
- * struct liststr - singly linked list
- * @num: the number field
- * @str: a string
- * @next: points to the next node
+ * struct liststr - Singly linked list
+ * @num: The number field for execution
+ * @str: Getting the string
+ * @next: Pointing direction to the next node
  */
 typedef struct liststr
 {
 	int num;
 	char *str;
 	struct liststr *next;
-} list_t;
+} regis_t;
 
 /**
- * struct updatepass - contains pseudo-arguements to pass into a function,
- * allowing uniform prototype for function pointer struct
- * @arg: a string generated from getline containing arguements
- * @argv:an array of strings generated from arg
- * @path: a string path for the current command
- * @argc: the argument count
- * @line_count: the error count
- * @err_num: the error code for exit()s
- * @linecount_flag: if on count this line of input
- * @fname: the program filename
- * @env: linked list local copy of environ
- * @environ: custom modified copy of environ from LL env
- * @history: the history node
- * @alias: the alias node
- * @env_changed: on if environ was changed
- * @status: the return status of the last exec'd command
- * @cmd_buf: address of pointer to cmd_buf, on if chaining
+ * struct updatepass - This carries pseudo-argt to pass into a function
+ * @arg: string build from getline containing arguments
+ * @argv:an Array of strings build from argument
+ * @path: string given on the current command path
+ * @argc: Counting argument on the program
+ * @line_count: Counting the errors on the program
+ * @err_num: Detectiong the error code for exit()s
+ * @linecount_flag: Execute program and count this line of input
+ * @fname: Name of the program file given for execution
+ * @env: Linked list local copy of environ variable
+ * @environ: Modified copy of environ from LL env
+ * @history: The history node given to the program
+ * @alias: The alias node given to the program
+ * @env_changed: Confirming if environ was changed
+ * @status: The return state of the previous exec'd cmd
+ * @cmd_buf: Locations of pointer to cmd_buf, over if chaining
  * @cmd_buf_type: CMD_type ||, &&, ;
- * @readfd: the fd from which to read line input
- * @histcount: the history line number count
+ * @readfd: The fildes all ready to read line input of program
+ * @histcount: The pass event line number which to be  counted
  */
 typedef struct updatepass
 {
@@ -82,14 +81,14 @@ typedef struct updatepass
 	int err_num;
 	int linecount_flag;
 	char *fname;
-	list_t *env;
-	list_t *history;
-	list_t *alias;
+	regis_t *env;
+	regis_t *history;
+	regis_t *alias;
 	char **environ;
 	int env_changed;
 	int status;
 
-	char **cmd_buf; /* pointer to cmd ; chain buffer, for memory mangement */
+	char **cmd_buf; /* pointer to comand ; chain buffer, memory mangement */
 	int cmd_buf_type; /* CMD_type ||, &&, ; */
 	int readfd;
 	int histcount;
@@ -100,9 +99,9 @@ typedef struct updatepass
 		0, 0, 0}
 
 /**
- * struct builtin - contains a builtin string and related function
- * @type: the builtin command flag
- * @func: the function
+ * struct builtin - This carries builtin string and related function prototype
+ * @type: The builtin command execution flag notation
+ * @func: The function prototype
  */
 typedef struct builtin
 {
@@ -111,18 +110,18 @@ typedef struct builtin
 } builtin_submit;
 
 
-/* Function protoype shel_looper.c */
+/* Function protoype 0-shel_looper.c */
 int hsh(update_p *, char **);
 int asset_builtin(update_p *);
 void asset_cmd(update_p *);
-void fork_cmd(update_p *);
+void furk_cmd(update_p *);
 
-/* Function protoype shel_monitor.c */
+/* Function protoype 0-shel_monitor.c */
 int mult_cmd(update_p *, char *);
 char *dupli_chars(char *, int, int);
 char *asset_path(update_p *, char *, char *);
 
-/* Function protoype shel loophsh.c */
+/* Function protoype shel_loophsh.c */
 int loophsh(char **);
 
 /* Function protoype 0-shel_errors.c */
@@ -148,19 +147,19 @@ char *_strncpy_(char *, char *, int);
 char *_strncat_(char *, char *, int);
 char *_strchr_(char *, char);
 
-/* Function protoype shel_token.c */
+/* Function protoype 0-shel_token.c */
 char **strtop_k(char *, char *);
 char **strto_k(char *, char);
 
-/* Function protoype shel_realloc.c */
-char *_memset(char *, char, unsigned int);
-void ffree(char **);
-void *_realloc(void *, unsigned int, unsigned int);
+/* Function protoype 0-shel_allocate.c */
+char *_wmanpro(char *, char, unsigned int);
+void f_empty(char **);
+void *_allocate(void *, unsigned int, unsigned int);
 
-/* Function protoype shel_memory.c */
-int bfree(void **);
+/* Function protoype 0-shel_memory.c */
+int pro_free(void **);
 
-/* Function protoype shel_atoi.c */
+/* Function protoype 0-shel_ansi_int.c */
 int opt_conjoint(update_p *);
 int opt_deli(char, char *);
 int opt_alphabet(int);
@@ -182,7 +181,7 @@ int _prohelp(update_p *);
 int _prohistory_(update_p *);
 int _proalias_(update_p *);
 
-/* Function protoype shel_getline.c */
+/* Function protoype 0-shel_getline.c */
 ssize_t wax_input(update_p *);
 int wax_get_line(update_p *, char **, size_t *);
 void sigl_Handler(int);
@@ -193,44 +192,44 @@ void make_update(update_p *, char **);
 void discharge_update(update_p *, int);
 
 /* Function protoype 0-shel_environ.c */
-char *_getenv(update_p *, const char *);
-int _myenv(update_p *);
-int _mysetenv(update_p *);
-int _myunsetenv(update_p *);
-int populate_env_list(update_p *);
+char *opt_envir(update_p *, const char *);
+int _proenvt(update_p *);
+int _prosetenvt(update_p *);
+int _prounsetenvt(update_p *);
+int pop_envt_regis(update_p *);
 
 /* Function protoype 0-shel_proenvt.c */
-char **get_environ(update_p *);
-int _unsetenv(update_p *, char *);
-int _setenv(update_p *, char *, char *);
+char **_pro_environ(update_p *);
+int _pro_unsetenvt(update_p *, char *);
+int proset_envt(update_p *, char *, char *);
 
 /* Function protoype 0-shel_history.c */
-char *get_history_file(update_p *update);
-int write_history(update_p *update);
-int read_history(update_p *update);
-int build_history_list(update_p *update, char *bufa, int cordcount);
-int renumber_history(update_p *update);
+char *get_chron_doc(update_p *update);
+int document_chron(update_p *update);
+int present_chron(update_p *update);
+int produce_chron_reg(update_p *update, char *bufa, int cordcount);
+int renums_chron(update_p *update);
 
-/* Function protoype 0-shel_lists.c */
-list_t *add_node(list_t **, const char *, int);
-list_t *add_node_end(list_t **, const char *, int);
-size_t print_list_str(const list_t *);
-int delete_node_at_index(list_t **, unsigned int);
-void free_list(list_t **);
+/* Function protoype 0-shel_regis.c */
+regis_t *attach_node(regis_t **, const char *, int);
+regis_t *attach_node_end(regis_t **, const char *, int);
+size_t output_reg_strn(const regis_t *);
+int remov_node_via_roll(regis_t **, unsigned int);
+void empty_register(regis_t **);
 
-/* Function protoype 1-shel_lists.c */
-size_t list_len(const list_t *);
-char **list_to_strings(list_t *);
-size_t print_list(const list_t *);
-list_t *node_starts_with(list_t *, char *, char);
-ssize_t get_node_index(list_t *, list_t *);
+/* Function protoype 1-shel_regis.c */
+size_t register_extent(const regis_t *);
+char **register_via_strn(regis_t *);
+size_t output_register(const regis_t *);
+regis_t *node_begin_on(regis_t *, char *, char);
+ssize_t bring_node_roll(regis_t *, regis_t *);
 
-/* Function protoype shel_variables.c */
-int is_chain(update_p *, char *, size_t *);
-void check_chain(update_p *, char *, size_t *, size_t, size_t);
-int replace_alias(update_p *);
-int replace_vars(update_p *);
-int replace_string(char **, char *);
+/* Function protoype 0-shel_variables.c */
+int pro_chan(update_p *, char *, size_t *);
+void confi_chan(update_p *, char *, size_t *, size_t, size_t);
+int reassign_alias(update_p *);
+int reassign_vars(update_p *);
+int reassign_strn(char **, char *);
 
 #endif
 

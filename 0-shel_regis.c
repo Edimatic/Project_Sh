@@ -1,7 +1,7 @@
 #include "function.h"
 
 /**
- * add_node - Adds a new node to the start of a linked list.
+ * attach_node - Adds a new node to the start of a linked list.
  *
  * @boss: Address of the pointer to the head node.
  * @strn: String field of the new node.
@@ -9,20 +9,20 @@
  *
  * Return: Pointer to the new head of the list after execution.
  */
-list_t *add_node(list_t **boss, const char *strn, int noms)
+regis_t *attach_node(regis_t **boss, const char *strn, int noms)
 {
-	list_t *new_boss;
+	regis_t *new_boss;
 
 	if (!boss)
 		return (NULL);
 
 	/* Allocate memory for the new node */
-	new_boss = malloc(sizeof(list_t));
+	new_boss = malloc(sizeof(regis_t));
 	if (!new_boss)
 		return (NULL);
 
 	/* Initialize the new node */
-	_memset((void *)new_boss, 0, sizeof(list_t));
+	_wmanpro((void *)new_boss, 0, sizeof(regis_t));
 	new_boss->num = noms;
 	if (strn)
 	{
@@ -41,7 +41,7 @@ list_t *add_node(list_t **boss, const char *strn, int noms)
 }
 
 /**
- * add_node_end - Adds a new node to the end of a linked list.
+ * attach_node_end - Adds a new node to the end of a linked list.
  *
  * @boss: Address of the pointer to the head node.
  * @strn: String field of the new node.
@@ -49,19 +49,19 @@ list_t *add_node(list_t **boss, const char *strn, int noms)
  *
  * Return: Pointer to the new node added to the end.
  */
-list_t *add_node_end(list_t **boss, const char *strn, int noms)
+regis_t *attach_node_end(regis_t **boss, const char *strn, int noms)
 {
-	list_t *new_node, *node;
+	regis_t *new_node, *node;
 
 	if (!boss)
 		return (NULL);
 
 	/* Create a new node and initialize it */
 	node = *boss;
-	new_node = malloc(sizeof(list_t));
+	new_node = malloc(sizeof(regis_t));
 	if (!new_node)
 		return (NULL);
-	_memset((void *)new_node, 0, sizeof(list_t));
+	_wmanpro((void *)new_node, 0, sizeof(regis_t));
 	new_node->num = noms;
 	if (strn)
 	{
@@ -86,13 +86,13 @@ list_t *add_node_end(list_t **boss, const char *strn, int noms)
 }
 
 /**
- * print_list_str - prints only the str element of a list_t linked list
+ * output_reg_strn - prints only the str element of a list_t linked list
  *
  * @hd: Pointer to the first node of the list.
  *
  * Return: Size of the list
  */
-size_t print_list_str(const list_t *hd)
+size_t output_reg_strn(const regis_t *hd)
 {
 	size_t w = 0;
 
@@ -108,16 +108,16 @@ size_t print_list_str(const list_t *hd)
 }
 
 /**
- * delete_node_at_index - Deletes a node at a given index from a linked list.
+ * remov_node_via_roll - Deletes a node at a given index from a linked list.
  *
  * @boss: Address of pointer to the first node
  * @sufix: Index of the node to deleted.
  *
  * Return: 1 on success, 0 on failure
  */
-int delete_node_at_index(list_t **boss, unsigned int sufix)
+int remov_node_via_roll(regis_t **boss, unsigned int sufix)
 {
-	list_t *node, *prev_node;
+	regis_t *node, *prev_node;
 	unsigned int y = 0;
 
 	if (!boss || !*boss)
@@ -149,15 +149,15 @@ int delete_node_at_index(list_t **boss, unsigned int sufix)
 }
 
 /**
- * free_list - Frees all nodes of a list.
+ * empty_register - Frees all nodes of a list.
  *
  * @boss_pt: Address of the  pointer to the head node.
  *
  * Return: void after execution.
  */
-void free_list(list_t **boss_pt)
+void empty_register(regis_t **boss_pt)
 {
-	list_t *node, *next_node, *boss;
+	regis_t *node, *next_node, *boss;
 
 	if (!boss_pt || !*boss_pt)
 		return;

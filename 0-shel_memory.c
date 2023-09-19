@@ -1,7 +1,7 @@
 #include "function.h"
 
 /**
- * bfree - Frees a pointer and sets it to NULL.
+ * pro_free - Frees a pointer and sets it to NULL.
  *
  * @pot: Address of the pointer to be freed.
  *
@@ -11,7 +11,7 @@
  *
  * Return: 1 if memory was freed, otherwise 0.after execution.
  */
-int bfree(void **pot)
+int pro_free(void **pot)
 {
 	if (pot && *pot)
 	{

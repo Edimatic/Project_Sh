@@ -1,20 +1,20 @@
 #include "function.h"
 
 /**
- * get_environ - Returns the actual copy of environment string array
+ * _pro_environ - Returns the actual copy of environment string array
  *
  * @update: Structure containing potential arguments. Used to maintain
  *          constant prototype.
  *
  * Return: Pointer to the array of environment strings.
  */
-char **get_environ(update_p *update)
+char **_pro_environ(update_p *update)
 {
 if (!update->environ || update->env_changed)
 	{
 
 /* Convert linked list to string array */
-	update->environ = list_to_strings(update->env);
+	update->environ = register_via_strn(update->env);
 	update->env_changed = 0;
 	}
 
@@ -22,7 +22,7 @@ if (!update->environ || update->env_changed)
 }
 
 /**
- * _unsetenv - Remove an environment variable
+ * _pro_unsetenvt - Remove an environment variable
  *
  * @update: Structure containing potential arguments. Used to maintain
  *        constant function prototype.
@@ -30,9 +30,9 @@ if (!update->environ || update->env_changed)
  *
  *  Return: 1 on successful delete, 0 otherwise
  */
-int _unsetenv(update_p *update, char *varia)
+int _pro_unsetenvt(update_p *update, char *varia)
 {
-	list_t *node = update->env;
+	regis_t *node = update->env;
 	size_t q = 0;
 	char *pik;
 
@@ -44,7 +44,7 @@ int _unsetenv(update_p *update, char *varia)
 		pik = begin_on(node->str, varia);
 		if (pik && *pik == '=')
 		{
-		update->env_changed = delete_node_at_index(&(update->env), q);
+		update->env_changed = remov_node_via_roll(&(update->env), q);
 			q = 0;
 			node = update->env;
 			continue;
@@ -56,7 +56,7 @@ int _unsetenv(update_p *update, char *varia)
 }
 
 /**
- * _setenv - Initialize a new environment variable,
+ * proset_envt - Initialize a new environment variable,
  *             or modify an existing one
  * @update: Structure containing potential arguments. Used to maintain
  *        constant prototype.
@@ -65,10 +65,10 @@ int _unsetenv(update_p *update, char *varia)
  *
  *  Return: Always 0 after execution
  */
-int _setenv(update_p *update, char *varia, char *va)
+int proset_envt(update_p *update, char *varia, char *va)
 {
 	char *bufa = NULL;
-	list_t *node;
+	regis_t *node;
 	char *pik;
 
 	if (!varia || !va)
@@ -95,7 +95,7 @@ int _setenv(update_p *update, char *varia, char *va)
 		}
 		node = node->next;
 	}
-	add_node_end(&(update->env), bufa, 0);/* Add new entry to linked list */
+	attach_node_end(&(update->env), bufa, 0);/* Add new entry to linked list */
 	free(bufa);
 	update->env_changed = 1;
 	return (0);

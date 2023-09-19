@@ -1,7 +1,7 @@
 #include "function.h"
 
 /**
- * _memset - Fills memory with a constant byte
+ * _wmanpro - Fills memory with a constant byte
  *
  * @sub: Pointer to the memory area.
  * @rom: The byte to fill *s with.
@@ -9,7 +9,7 @@
  *
  * Return: A pointer to the memory area s.
  */
-char *_memset(char *sub, char rom, unsigned int zip)
+char *_wmanpro(char *sub, char rom, unsigned int zip)
 {
 	unsigned int jik;
 
@@ -19,13 +19,13 @@ char *_memset(char *sub, char rom, unsigned int zip)
 }
 
 /**
- * ffree - frees a string of strings
+ * f_empty - frees a string of strings
  *
  * @lov: string of strings
  *
  *  This function frees a dynamically allocated array of strings.
  */
-void ffree(char **lov)
+void f_empty(char **lov)
 {
 	char **d = lov;
 
@@ -37,7 +37,7 @@ void ffree(char **lov)
 }
 
 /**
- * _realloc - Reallocates a block of memory.
+ * _allocate - Reallocates a block of memory.
  *
  * @poin: Pointer to previous malloc'ated block.
  * @mature_s: Byte size of previous block.
@@ -46,7 +46,7 @@ void ffree(char **lov)
  * Return: Pointer to the old block if reallocation fails,
  *	else a pointer to the new block.
  */
-void *_realloc(void *poin, unsigned int mature_s, unsigned int latest_s)
+void *_allocate(void *poin, unsigned int mature_s, unsigned int latest_s)
 {
 	char *pt;
 

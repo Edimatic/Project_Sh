@@ -41,21 +41,21 @@ void make_update(update_p *update, char **him)
 			;
 		update->argc = g;
 
-		replace_alias(update);/* Replace aliases in argv */
-		replace_vars(update);/* Replace environment variable references in argv */
+		reassign_alias(update);/* Reassign aliases in argv */
+		reassign_vars(update);/* Reassign environ variable references in argv */
 	}
 }
 
 /**
  * discharge_update - Frees memory associated with an update_p struct's fields.
  *
- * @update: Pointer to the info_t struct to be freed.
+ * @update: Pointer to the update_p struct to be freed.
  *
  * @hal: Flag indicating if all fields should be freed.
  */
 void discharge_update(update_p *update, int hal)
 {
-	ffree(update->argv);/* Free the argv array */
+	f_empty(update->argv);/* Free the argv array */
 	update->argv = NULL;
 	update->path = NULL;
 	if (hal)
@@ -64,14 +64,14 @@ void discharge_update(update_p *update, int hal)
 	/* Free argument string if not part of a command chain */
 			free(update->arg);
 		if (update->env)
-			free_list(&(update->env));/* Free environment linked list */
+			empty_register(&(update->env));/* Free environment linked list */
 		if (update->history)
-			free_list(&(update->history));/* Free history linked list */
+			empty_register(&(update->history));/* Free history linked list */
 		if (update->alias)
-			free_list(&(update->alias));/* Free alias linked list */
-		ffree(update->environ);/* Free environment string array */
+			empty_register(&(update->alias));/* Free alias linked list */
+		f_empty(update->environ);/* Free environment string array */
 			update->environ = NULL;
-		bfree((void **)update->cmd_buf);/* Free command buffer */
+		pro_free((void **)update->cmd_buf);/* Free command buffer */
 		if (update->readfd > 2)
 			close(update->readfd);/* Close file descriptor */
 		_putchar(BUF_FLUSH);/* Flush the output buffer */

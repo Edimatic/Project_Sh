@@ -1,19 +1,19 @@
 #include "function.h"
 
 /**
- * get_history_file - Generates the path for the history file.
+ * get_chron_doc - Generates the path for the history file.
  *
  * @update: Pointer to the info_t struct containing information.
  *
  * Return: Allocated string containing history file path or NULL on failure.
  */
 
-char *get_history_file(update_p *update)
+char *get_chron_doc(update_p *update)
 {
 	char *bufa;
 	char *direct;
 
-	direct = _getenv(update, "HOME=");/*Get user's home directory*/
+	direct = opt_envir(update, "HOME=");/*Get user's home directory*/
 	if (!direct)
 		return (NULL);
 	bufa = malloc(sizeof(char) * (_strlen_(direct) + _strlen_(HIST_FILE) + 2));
@@ -27,17 +27,17 @@ char *get_history_file(update_p *update)
 }
 
 /**
- * write_history - Writes history entries to a file.
+ * document_chron - Writes history entries to a file.
  *
  * @update: Pointer to the info_t struct containing history information.
  *
  * Return: 1 on success, -1 on failure.
  */
-int write_history(update_p *update)
+int document_chron(update_p *update)
 {
 	ssize_t fildes;
-	char *box_name = get_history_file(update);
-	list_t *node = NULL;
+	char *box_name = get_chron_doc(update);
+	regis_t *node = NULL;
 
 	if (!box_name)
 		return (-1);
@@ -57,25 +57,25 @@ int write_history(update_p *update)
 }
 
 /**
- * read_history - Reads history entries from a file.
+ * present_chron - present chronicle entries from a file.
  *
  * @update: Pointer to the update_p struct containing history information.
  *
  * Return: Number of history entries read, or 0 on failure.
  */
-int read_history(update_p *update)
+int present_chron(update_p *update)
 {
 	int gh, last = 0;
 	int rulecount = 0;
 	ssize_t fildes, read_lengt;
 	ssize_t fsize = 0;
 	struct stat st;
-	char *bufa = NULL, *box_name = get_history_file(update);
+	char *bufa = NULL, *box_name = get_chron_doc(update);
 
 	if (!box_name)
 		return (0);
 
-	fildes = open(box_name, O_RDONLY);/*OPen history file for reading*/
+	fildes = open(box_name, O_RDONLY);/*OPen chronicle file for reading*/
 	free(box_name);
 	if (fildes == -1)
 		return (0);
@@ -95,20 +95,20 @@ int read_history(update_p *update)
 		if (bufa[gh] == '\n')
 		{
 			bufa[gh] = 0;
-			build_history_list(update, bufa + last, rulecount++);
+			produce_chron_reg(update, bufa + last, rulecount++);
 			last = gh + 1;
 		}
 	if (last != gh)
-		build_history_list(update, bufa + last, rulecount++);
+		produce_chron_reg(update, bufa + last, rulecount++);
 	free(bufa);
 	update->histcount = rulecount;
 	while (update->histcount-- >= HIST_MAX)/*Trim hist list if exceeds max*/
-		delete_node_at_index(&(update->history), 0);
-	renumber_history(update);/*Renumber the history list*/
+		remov_node_via_roll(&(update->history), 0);
+	renums_chron(update);/*Renumber the history list*/
 	return (update->histcount); }
 
 /**
- * build_history_list - Adds entry to the history linked list.
+ * produce_chron_reg - Adds entry to the chronicle linked list.
  *
  * @update: - Pointer to the update_p struct containing history information.
  * @bufa: The history entry to add.
@@ -116,13 +116,13 @@ int read_history(update_p *update)
  *
  * Return: Always 0 after execution.
  */
-int build_history_list(update_p *update, char *bufa, int cordcount)
+int produce_chron_reg(update_p *update, char *bufa, int cordcount)
 {
-	list_t *node = NULL;
+	regis_t *node = NULL;
 
 	if (update->history)
 		node = update->history;
-	add_node_end(&node, bufa, cordcount);
+	attach_node_end(&node, bufa, cordcount);
 
 	if (!update->history)
 		update->history = node;
@@ -130,15 +130,15 @@ int build_history_list(update_p *update, char *bufa, int cordcount)
 }
 
 /**
- * renumber_history - When chenage is complete renumber the history link list.
+ * renums_chron - When chenage is complete renumber the chronicle link list.
  *
  * @update: Pointer to the update_p struct containing history information.
  *
  * Return: The new histcount (number of history entries).
  */
-int renumber_history(update_p *update)
+int renums_chron(update_p *update)
 {
-	list_t *node = update->history;
+	regis_t *node = update->history;
 	int gh = 0;
 
 	while (node)
