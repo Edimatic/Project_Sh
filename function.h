@@ -39,59 +39,59 @@ extern char **environ;
 
 /**
  * struct liststr - Singly linked list
- * @num: The number field for execution
- * @str: Getting the string
- * @next: Pointing direction to the next node
+ * @figure: The figure field for execution
+ * @rop: Getting the rop string active
+ * @after: Pointing direction to the next node
  */
 typedef struct liststr
 {
-	int num;
-	char *str;
-	struct liststr *next;
+	char *rop;
+	struct liststr *after;
+	int figure;
 } regis_t;
 
 /**
  * struct updatepass - This carries pseudo-argt to pass into a function
- * @arg: string build from getline containing arguments
+ * @logic: string build from getline containing arguments
  * @argv:an Array of strings build from argument
- * @path: string given on the current command path
+ * @direct: string given on the current command direction
  * @argc: Counting argument on the program
- * @line_count: Counting the errors on the program
- * @err_num: Detectiong the error code for exit()s
- * @linecount_flag: Execute program and count this line of input
- * @fname: Name of the program file given for execution
+ * @check_score: checking the errors on the program
+ * @nums_mistek: Detectiong the error code for exit()s
+ * @edgesum_up: Execute program and count this line of input
+ * @file_tag: Name of the program file given for execution
  * @env: Linked list local copy of environ variable
  * @environ: Modified copy of environ from LL env
  * @history: The history node given to the program
  * @alias: The alias node given to the program
- * @env_changed: Confirming if environ was changed
- * @status: The return state of the previous exec'd cmd
- * @cmd_buf: Locations of pointer to cmd_buf, over if chaining
- * @cmd_buf_type: CMD_type ||, &&, ;
- * @readfd: The fildes all ready to read line input of program
- * @histcount: The pass event line number which to be  counted
+ * @pro_envt: Confirming if environ was changed
+ * @ranking: The return state of the previous exec'd cmd
+ * @grip_bufa: Locations of pointer to grip_bufa, over if chaining
+ * @grip_bufa_dash: GRIP_type ||, &&, ;
+ * @fildes_output: The fildes all ready to output line input of program
+ * @pass_note: The pass event line number which to be  counted
  */
 typedef struct updatepass
 {
-	char *arg;
+	char *logic;
 	char **argv;
-	char *path;
+	char *direct;
 	int argc;
-	unsigned int line_count;
-	int err_num;
-	int linecount_flag;
-	char *fname;
+	unsigned int check_score;
+	int nums_mistek;
+	int edgesum_up;
+	char *file_tag;
 	regis_t *env;
 	regis_t *history;
 	regis_t *alias;
 	char **environ;
-	int env_changed;
-	int status;
+	int ranking;
+	int pro_envt;
 
-	char **cmd_buf; /* pointer to comand ; chain buffer, memory mangement */
-	int cmd_buf_type; /* CMD_type ||, &&, ; */
-	int readfd;
-	int histcount;
+	char **grip_bufa; /* pointer to grip ; chain buffer, memory mangement */
+	int grip_bufa_dash; /* GRIP_dash ||, &&, ; */
+	int fildes_output;
+	int pass_note;
 } update_p;
 
 #define UPDATE_INIT \
@@ -100,13 +100,15 @@ typedef struct updatepass
 
 /**
  * struct builtin - This carries builtin string and related function prototype
- * @type: The builtin command execution flag notation
- * @func: The function prototype
+ * @dash: The builtin command execution flag notation
+ * @role: The role given to prototype
  */
 typedef struct builtin
 {
-	char *type;
-	int (*func)(update_p *);
+
+	char *dash;
+	int (*role)(update_p *);
+
 } builtin_submit;
 
 

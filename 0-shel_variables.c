@@ -17,18 +17,18 @@ int pro_chan(update_p *update, char *bofa, size_t *shw)
 	{
 		bofa[h] = 0;
 		h++;
-		update->cmd_buf_type = CMD_OR;
+		update->grip_bufa_dash = CMD_OR;
 	}
 	else if (bofa[h] == '&' && bofa[h + 1] == '&')/* Check for '&&' */
 	{
 		bofa[h] = 0;
 		h++;
-		update->cmd_buf_type = CMD_AND;
+		update->grip_bufa_dash = CMD_AND;
 	}
 	else if (bofa[h] == ';') /* Seen the last command */
 	{
 		bofa[h] = 0; /* Reallocate semicolon with null */
-		update->cmd_buf_type = CMD_CHAIN;
+		update->grip_bufa_dash = CMD_CHAIN;
 	}
 	else
 		return (0);
@@ -51,17 +51,17 @@ void confi_chan(update_p *update, char *bof, size_t *sh, size_t v, size_t dis)
 {
 	size_t pin = *sh;
 
-	if (update->cmd_buf_type == CMD_AND)
+	if (update->grip_bufa_dash == CMD_AND)
 	{
-		if (update->status)
+		if (update->ranking)
 		{
 			bof[v] = 0;
 			pin = dis;
 		}
 	}
-	if (update->cmd_buf_type == CMD_OR)
+	if (update->grip_bufa_dash == CMD_OR)
 	{
-		if (!update->status)
+		if (!update->ranking)
 		{
 			bof[v] = 0;
 			pin = dis;
@@ -90,7 +90,7 @@ int reassign_alias(update_p *update)
 		if (!node)
 			return (0);
 		free(update->argv[0]);
-		ok = _strchr_(node->str, '=');
+		ok = _strchr_(node->rop, '=');
 		if (!ok)
 			return (0);
 		ok = _strdup_(ok + 1);
@@ -121,7 +121,7 @@ int reassign_vars(update_p *update)
 		if (!_strcmp_(update->argv[kim], "$?"))
 		{
 			reassign_strn(&(update->argv[kim]),
-					_strdup_(change_numz(update->status, 10, 0)));
+					_strdup_(change_numz(update->ranking, 10, 0)));
 			continue;
 		}
 		if (!_strcmp_(update->argv[kim], "$$"))
@@ -134,7 +134,7 @@ int reassign_vars(update_p *update)
 		if (node)
 		{
 			reassign_strn(&(update->argv[kim]),
-					_strdup_(_strchr_(node->str, '=') + 1));
+					_strdup_(_strchr_(node->rop, '=') + 1));
 			continue;
 		}
 		reassign_strn(&update->argv[kim], _strdup_(""));

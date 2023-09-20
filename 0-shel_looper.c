@@ -38,13 +38,13 @@ int hsh(update_p *update, char **agtv)
 	}
 	document_chron(update);
 	discharge_update(update, 1);
-	if (!opt_conjoint(update) && update->status)
-		exit(update->status);
+	if (!opt_conjoint(update) && update->ranking)
+		exit(update->ranking);
 	if (builtin_ret == -2)
 	{
-		if (update->err_num == -1)
-			exit(update->status);
-		exit(update->err_num);
+		if (update->nums_mistek == -1)
+			exit(update->ranking);
+		exit(update->nums_mistek);
 	}
 	return (builtin_ret);
 }
@@ -76,11 +76,11 @@ int asset_builtin(update_p *update)
 		{NULL, NULL}
 	};
 
-	for (read_status = 0; builtinsbt[read_status].type; read_status++)
-		if (_strcmp_(update->argv[0], builtinsbt[read_status].type) == 0)
+	for (read_status = 0; builtinsbt[read_status].dash; read_status++)
+		if (_strcmp_(update->argv[0], builtinsbt[read_status].dash) == 0)
 		{
-			update->line_count++;
-			builtin_pro = builtinsbt[read_status].func(update);
+			update->check_score++;
+			builtin_pro = builtinsbt[read_status].role(update);
 			break;
 		}
 	return (builtin_pro);
@@ -102,14 +102,14 @@ void asset_cmd(update_p *update)
 	int y;
 	int k;
 
-	update->path = update->argv[0];
-	if (update->linecount_flag == 1)
+	update->direct = update->argv[0];
+	if (update->edgesum_up == 1)
 	{
-		update->line_count++;
-		update->linecount_flag = 0;
+		update->check_score++;
+		update->edgesum_up = 0;
 	}
-	for (y = 0, k = 0; update->arg[y]; y++)
-		if (!opt_deli(update->arg[y], " \t\n"))
+	for (y = 0, k = 0; update->logic[y]; y++)
+		if (!opt_deli(update->logic[y], " \t\n"))
 			k++;
 	if (!k)
 		return;
@@ -117,7 +117,7 @@ void asset_cmd(update_p *update)
 	direction = asset_path(update, opt_envir(update, "PATH="), update->argv[0]);
 	if (direction)
 	{
-		update->path = direction;
+		update->direct = direction;
 		furk_cmd(update);
 	}
 	else
@@ -125,9 +125,9 @@ void asset_cmd(update_p *update)
 		if ((opt_conjoint(update) || opt_envir(update, "PATH=")
 					|| update->argv[0][0] == '/') && mult_cmd(update, update->argv[0]))
 			furk_cmd(update);
-		else if (*(update->arg) != '\n')
+		else if (*(update->logic) != '\n')
 		{
-			update->status = 127;
+			update->ranking = 127;
 			show_error(update, "not found\n");
 		}
 	}
@@ -153,7 +153,7 @@ void furk_cmd(update_p *update)
 	}
 	if (child_pid == 0)
 	{
-		if (execve(update->path, update->argv, _pro_environ(update)) == -1)
+		if (execve(update->direct, update->argv, _pro_environ(update)) == -1)
 		{
 			discharge_update(update, 1);
 			if (errno == EACCES)
@@ -164,11 +164,11 @@ void furk_cmd(update_p *update)
 	}
 	else
 	{
-		wait(&(update->status));
-		if (WIFEXITED(update->status))
+		wait(&(update->ranking));
+		if (WIFEXITED(update->ranking))
 		{
-			update->status = WEXITSTATUS(update->status);
-			if (update->status == 126)
+			update->ranking = WEXITSTATUS(update->ranking);
+			if (update->ranking == 126)
 				show_error(update, "Permission denied\n");
 		}
 	}

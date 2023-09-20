@@ -41,9 +41,9 @@ int _erro_out(char *stg)
  */
 void show_error(update_p *update, char *estr)
 {
-	_funcputs(update->fname);
+	_funcputs(update->file_tag);
 	_funcputs(": ");
-	show_dir(update->line_count, STDERR_FILENO);
+	show_dir(update->check_score, STDERR_FILENO);
 	_funcputs(": ");
 	_funcputs(update->argv[0]);
 	_funcputs(": ");

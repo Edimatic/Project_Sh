@@ -13,7 +13,7 @@ size_t register_extent(const regis_t *md)
 
 	while (md)
 	{
-		md = md->next;
+		md = md->after;
 		lp++;
 	}
 	return (lp);
@@ -31,7 +31,7 @@ char **register_via_strn(regis_t *boss)
 	regis_t *node = boss;
 	size_t q = register_extent(boss), lp;
 	char **turs;
-	char *str;
+	char *strng;
 
 	if (!boss || !q)
 		return (NULL);
@@ -42,10 +42,10 @@ char **register_via_strn(regis_t *boss)
 		return (NULL);
 
 	/* Iterate through the linked list and copy strings to the array */
-	for (q = 0; node; node = node->next, q++)
+	for (q = 0; node; node = node->after, q++)
 	{
-		str = malloc(_strlen_(node->str) + 1);
-		if (!str)
+		strng = malloc(_strlen_(node->rop) + 1);
+		if (!strng)
 		{
 			for (lp = 0; lp < q; lp++)
 				free(turs[lp]);
@@ -53,8 +53,8 @@ char **register_via_strn(regis_t *boss)
 			return (NULL);
 		}
 
-		str = _strcpy_(str, node->str);
-		turs[q] = str;
+		strng = _strcpy_(strng, node->rop);
+		turs[q] = strng;
 	}
 	turs[q] = NULL;
 	return (turs);
@@ -74,12 +74,12 @@ size_t output_register(const regis_t *md)
 
 	while (md)
 	{
-		_puts_(change_numz(md->num, 10, 0));
+		_puts_(change_numz(md->figure, 10, 0));
 		_putchar(':');
 		_putchar(' ');
-		_puts_(md->str ? md->str : "(nil)");/* Print the 'str' element or "(nil)" */
+		_puts_(md->rop ? md->rop : "(nil)");/* Print the 'str' element or "(nil)" */
 		_puts_("\n");
-		md = md->next;
+		md = md->after;
 		w++;
 	}
 	return (w);
@@ -100,10 +100,10 @@ regis_t *node_begin_on(regis_t *apex, char *mix, char cht)
 
 	while (apex)
 	{
-		pin = begin_on(apex->str, mix);
+		pin = begin_on(apex->rop, mix);
 		if (pin && ((cht == -1) || (*pin == cht)))
 			return (apex);
-		apex = apex->next;
+		apex = apex->after;
 	}
 	return (NULL);
 }
@@ -124,7 +124,7 @@ ssize_t bring_node_roll(regis_t *front, regis_t *apex)
 	{
 		if (front == apex)
 			return (g);
-		front = front->next;
+		front = front->after;
 		g++;
 	}
 	return (-1);/* Node not found in the list */

@@ -31,13 +31,13 @@ ssize_t load_bufa(update_p *update, char **bufa, size_t *distance)
 		(*bufa)[r - 1] = '\0'; /* delete trailing newline */
 				r--;
 			}
-	update->linecount_flag = 1;
+	update->edgesum_up = 1;
 	take_out_comments(*bufa);/* Take out comments from the input */
-	produce_chron_reg(update, *bufa, update->histcount++);/* Add to history */
+	produce_chron_reg(update, *bufa, update->pass_note++);/* Add to history */
 
 			{
 			*distance = r;
-			update->cmd_buf = bufa;/* Store command chain buffer */
+			update->grip_bufa = bufa;/* Store command chain buffer */
 			}
 		}
 	}
@@ -57,7 +57,7 @@ ssize_t wax_input(update_p *update)
 	static size_t q;
 	static size_t j, len;
 	ssize_t x = 0;
-	char **buf_p = &(update->arg), *p;
+	char **buf_p = &(update->logic), *p;
 
 	_putchar(BUF_FLUSH);/* Flush buffer */
 	x = load_bufa(update, &buf, &len);
@@ -80,7 +80,7 @@ ssize_t wax_input(update_p *update)
 		if (q >= len) /* Reached end of buffa? */
 		{
 			q = len = 0; /* Reset position & len */
-			update->cmd_buf_type = CMD_NORM;
+			update->grip_bufa_dash = CMD_NORM;
 		}
 
 		*buf_p = p;
@@ -106,7 +106,7 @@ ssize_t scan_bufa(update_p *update, char *bufa, size_t *index)
 
 	if (*index)
 		return (0);
-	q = read(update->readfd, bufa, READ_BUF_SIZE);/* Read into buffer */
+	q = read(update->fildes_output, bufa, READ_BUF_SIZE);/* Read into buffer */
 	if (q >= 0)
 		*index = q;
 	return (q);

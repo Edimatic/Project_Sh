@@ -46,9 +46,9 @@ int document_chron(update_p *update)
 	free(box_name);
 	if (fildes == -1)
 		return (-1);
-	for (node = update->history; node; node = node->next)/*Write history entries*/
+	for (node = update->history; node; node = node->after)/*Writ history entries*/
 	{
-		_puts_fildes(node->str, fildes);
+		_puts_fildes(node->rop, fildes);
 		_putfildes('\n', fildes);
 	}
 	_putfildes(BUF_FLUSH, fildes);/*Flush the output buffer*/
@@ -101,11 +101,11 @@ int present_chron(update_p *update)
 	if (last != gh)
 		produce_chron_reg(update, bufa + last, rulecount++);
 	free(bufa);
-	update->histcount = rulecount;
-	while (update->histcount-- >= HIST_MAX)/*Trim hist list if exceeds max*/
+	update->pass_note = rulecount;
+	while (update->pass_note-- >= HIST_MAX)/*Trim hist list if exceeds max*/
 		remov_node_via_roll(&(update->history), 0);
 	renums_chron(update);/*Renumber the history list*/
-	return (update->histcount); }
+	return (update->pass_note); }
 
 /**
  * produce_chron_reg - Adds entry to the chronicle linked list.
@@ -143,8 +143,8 @@ int renums_chron(update_p *update)
 
 	while (node)
 	{
-		node->num = gh++;
-		node = node->next;
+		node->figure = gh++;
+		node = node->after;
 	}
-	return (update->histcount = gh);
+	return (update->pass_note = gh);
 }

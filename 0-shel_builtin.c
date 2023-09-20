@@ -16,16 +16,16 @@ int _proexit(update_p *update)
 		exitcheck = _erro_out(update->argv[1]);
 		if (exitcheck == -1)
 		{
-			update->status = 2;
+			update->ranking = 2;
 			show_error(update, "Illegal number: ");
 			_funcputs(update->argv[1]);
 			_funcputchar('\n');
 			return (1);
 		}
-		update->err_num = _erro_out(update->argv[1]);
+		update->nums_mistek = _erro_out(update->argv[1]);
 		return (-2);
 	}
-	update->err_num = -1;
+	update->nums_mistek = -1;
 	return (-2);
 }
 

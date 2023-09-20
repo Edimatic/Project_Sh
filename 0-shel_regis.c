@@ -23,11 +23,11 @@ regis_t *attach_node(regis_t **boss, const char *strn, int noms)
 
 	/* Initialize the new node */
 	_wmanpro((void *)new_boss, 0, sizeof(regis_t));
-	new_boss->num = noms;
+	new_boss->figure = noms;
 	if (strn)
 	{
-		new_boss->str = _strdup_(strn);
-		if (!new_boss->str)
+		new_boss->rop = _strdup_(strn);
+		if (!new_boss->rop)
 		{
 			free(new_boss);
 			return (NULL);
@@ -35,7 +35,7 @@ regis_t *attach_node(regis_t **boss, const char *strn, int noms)
 	}
 
 	/* Update the new node's 'next' pointer and the list's head */
-	new_boss->next = *boss;
+	new_boss->after = *boss;
 	*boss = new_boss;
 	return (new_boss);
 }
@@ -62,11 +62,11 @@ regis_t *attach_node_end(regis_t **boss, const char *strn, int noms)
 	if (!new_node)
 		return (NULL);
 	_wmanpro((void *)new_node, 0, sizeof(regis_t));
-	new_node->num = noms;
+	new_node->figure = noms;
 	if (strn)
 	{
-		new_node->str = _strdup_(strn);
-		if (!new_node->str)
+		new_node->rop = _strdup_(strn);
+		if (!new_node->rop)
 		{
 			free(new_node);
 			return (NULL);
@@ -76,9 +76,9 @@ regis_t *attach_node_end(regis_t **boss, const char *strn, int noms)
 /* If the list is not empty, find the last node and append the new node */
 	if (node)
 	{
-		while (node->next)
-			node = node->next;
-		node->next = new_node;
+		while (node->after)
+			node = node->after;
+		node->after = new_node;
 	}
 	else
 		*boss = new_node;
@@ -99,9 +99,9 @@ size_t output_reg_strn(const regis_t *hd)
 	while (hd)
 	{
 		/* Print the 'str' element or "(nil)" */
-		_puts_(hd->str ? hd->str : "(nil)");
+		_puts_(hd->rop ? hd->rop : "(nil)");
 		_puts_("\n");
-		hd = hd->next;
+		hd = hd->after;
 		w++;
 	}
 	return (w);
@@ -126,8 +126,8 @@ int remov_node_via_roll(regis_t **boss, unsigned int sufix)
 	if (!sufix)/* If index is 0, remove the first node */
 	{
 		node = *boss;
-		*boss = (*boss)->next;
-		free(node->str);
+		*boss = (*boss)->after;
+		free(node->rop);
 		free(node);
 		return (1);
 	}
@@ -136,14 +136,14 @@ int remov_node_via_roll(regis_t **boss, unsigned int sufix)
 	{
 		if (y == sufix)/* Found the node to delete */
 		{
-			prev_node->next = node->next;
-			free(node->str);
+			prev_node->after = node->after;
+			free(node->rop);
 			free(node);
 			return (1);
 		}
 		y++;
 		prev_node = node;
-		node = node->next;
+		node = node->after;
 	}
 	return (0);/* Node at the given index was not found */
 }
@@ -165,8 +165,8 @@ void empty_register(regis_t **boss_pt)
 	node = boss;
 	while (node)
 	{
-		next_node = node->next;
-		free(node->str);
+		next_node = node->after;
+		free(node->rop);
 		free(node);
 		node = next_node;
 	}

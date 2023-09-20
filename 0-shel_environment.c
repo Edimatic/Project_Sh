@@ -32,10 +32,10 @@ char *opt_envir(update_p *update, const char *label)
 	while (node)
 	{
 /* Check if the node's string starts with the given name */
-		b = begin_on(node->str, label);
+		b = begin_on(node->rop, label);
 		if (b && *b)
 			return (b);
-		node = node->next;
+		node = node->after;
 	}
 	return (NULL);
 }

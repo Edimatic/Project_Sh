@@ -88,10 +88,10 @@ int show_alias_(regis_t *node)
 	if (node)
 	{
 /* Find the equal sign in the alias node's string */
-		b = _strchr_(node->str, '=');
+		b = _strchr_(node->rop, '=');
 
 /* Print the alias name followed by '=' and enclosed value in single quotes*/
-		for (v = node->str; v <= b; v++)
+		for (v = node->rop; v <= b; v++)
 		_putchar(*v);
 		_putchar('\'');
 		_puts_(b + 1);
@@ -122,7 +122,7 @@ int _proalias_(update_p *update)
 		while (node)
 		{
 			show_alias_(node);
-			node = node->next;
+			node = node->after;
 		}
 		return (0);
 	}

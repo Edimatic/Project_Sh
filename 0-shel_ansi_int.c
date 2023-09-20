@@ -9,7 +9,7 @@
 int opt_conjoint(update_p *update)
 {
 /*Check if standard input is a terminal & readfd is within the valid range*/
-	return (isatty(STDIN_FILENO) && update->readfd <= 2);
+	return (isatty(STDIN_FILENO) && update->fildes_output <= 2);
 }
 
 /**

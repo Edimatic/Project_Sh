@@ -13,7 +13,7 @@ int main(int argct, char **argvt)
 	update_p update[] = { UPDATE_INIT };/* Initialize an update_p structure */
 	int fd = 2;
 
-/* Inline assembly to perform some operation on 'fd'*/
+/* Inline assembly to perform some operation on 'fildes'*/
 	asm ("mov %1, %0\n\t"
 			"add $3, %0"
 			: "=r" (fd)
@@ -37,9 +37,9 @@ int main(int argct, char **argvt)
 			}
 			return (EXIT_FAILURE);/* Return failure code for other errors */
 		}
-		update->readfd = fd;/* Set the 'readfd' field in the 'info' structure */
+		update->fildes_output = fd;/* Set the 'fildes' field in the 'update' struct*/
 	}
-	pop_envt_regis(update);/* Populate the envt list in the 'info' structure*/
+	pop_envt_regis(update);/* Populate the envt list in the 'update' structure*/
 	present_chron(update);/* Read command history from a file */
 	hsh(update, argvt);/* Start the shell's main loop */
 	return (EXIT_SUCCESS);/* Return success code */
